@@ -2,7 +2,6 @@ import React from "react";
 
 function Datatable({ data }) {
   const columns = data[0] && Object.keys(data[0]);
-  console.log(data);
   return (
     <>
       <div>Datatable</div>

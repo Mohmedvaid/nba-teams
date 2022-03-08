@@ -17,7 +17,7 @@ function App() {
       .then((res) => {
         setData(res.data);
         setLoading(false);
-		console.log(data)
+        console.log(data);
       })
       .catch((err) => {
         setError(err);
@@ -25,10 +25,21 @@ function App() {
       });
   }, []);
 
+  function search(rows) {
+	return rows.filter((row) => {
+	  return Object.values(row).some((col) =>
+		String(col).toLowerCase().includes(q.toLowerCase())
+	  );
+	});
+  }
+
   return (
     <div className="App">
       <h1>Hello World!</h1>
-      <DataTable data={data} />
+      <div>
+        <input type="text" value={q} onChange={(e) => setQ(e.target.value)} />
+      </div>
+      <DataTable data={search(data)} />
     </div>
   );
 }
