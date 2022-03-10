@@ -20,12 +20,17 @@ function Datatable({ data }) {
   const [page, setPage] = useState(0);
   const columns = data[0] && Object.keys(data[0]).filter((key) => !ignoreFields.includes(key));
   const dataChunks = splitDataInChunks(data, paginationSize);
-  const [currentData, setCurrentData] = useState(dataChunks[0]);
-console.log(page, dataChunks.length);
+  const [currentData, setCurrentData] = useState([]);
   const handlePageChange = (page) => {
     setPage(page);
     setCurrentData(dataChunks[page]);
   };
+
+  useEffect(() => {
+    setCurrentData(dataChunks[page]);
+    setPage(0);
+  }, [data])
+
   if (!currentData) return <div>Nothing here!</div>;
   return (
     <Container>

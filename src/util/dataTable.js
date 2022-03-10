@@ -6,4 +6,5 @@ const columnTitles = {
     conference: 'Conference',
     division: 'Division',
 }
-module.exports = { ignoreFields, columnTitles }
+const filterByValues = ['All','Abbreviation', 'City', 'Conference', 'Division']
+module.exports = { ignoreFields, columnTitles, filterByValues };
