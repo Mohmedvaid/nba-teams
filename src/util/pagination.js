@@ -1,3 +1,3 @@
-const paginationSize = 5;
+const paginationSize = 10;
 
 module.exports = { paginationSize };
