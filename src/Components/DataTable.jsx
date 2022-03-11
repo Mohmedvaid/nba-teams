@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
@@ -7,6 +7,7 @@ import { ignoreFields, columnTitles } from "../util/dataTable";
 import { paginationSize } from "../util/pagination";
 import BasicPagination from "./BasicPagination";
 import AlertMessage from "./AlertMessage";
+import sidePanelContext from "../Context";
 
 // create chunks for pagination
 function splitDataInChunks(data, chunkSize) {
@@ -30,14 +31,40 @@ function Datatable({ data }) {
     setPage(newPage);
     setCurrentData(dataChunks[page]);
   };
+  const {
+    isSidePanelOpen,
+    setIsSidePanelOpen,
+    sidePanelData,
+    setSidePanelData,
+  } = useContext(sidePanelContext);
 
   useEffect(() => {
     setCurrentData(dataChunks[page]);
     setPage(0);
   }, [data]);
 
-  const displayTeamDetails = (team) => {
-    alert(JSON.stringify(team));
+  // get teams data from API and set it to the seidepanel data
+  const getTeamsData = async (teamID) => {
+    const response = await fetch(
+      `https://www.balldontlie.io/api/v1/games?team_ids[]=${teamID}`
+    );
+    const { data: teamData } = await response.json();
+    return teamData;
+  };
+
+  const displayTeamDetails = async (team) => {
+    const teamData = await getTeamsData(team.id);
+    setIsSidePanelOpen(true);
+    setSidePanelData({
+      id: team.id,
+      full_name: team.full_name,
+      name: team.name,
+      abbreviation: team.abbreviation,
+      city: team.city,
+      conference: team.conference,
+      division: team.division,
+      teamData,
+    });
   };
 
   if (!currentData || data.length === 0) {
@@ -48,6 +75,7 @@ function Datatable({ data }) {
       />
     );
   }
+  console.log(page);
   return (
     <Container>
       {/* basic table layout */}
@@ -68,7 +96,9 @@ function Datatable({ data }) {
             <tr
               // eslint-disable-next-line react/no-array-index-key
               key={rowIndex}
-              className="table-main-col"
+              className={`${
+                sidePanelData.id === row.id ? "bg-danger" : ""
+              } table-main-col`}
               onClick={() => displayTeamDetails(row)}
             >
               {columns.map((column, colIndex) => (

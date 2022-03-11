@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./App.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -13,6 +13,7 @@ import {
   filterByAll,
 } from "./util/filters";
 import Loader from "./Components/Loader";
+import sidePanelContext from "./Context";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -21,6 +22,23 @@ function App() {
   const [filerBy, setFilerBy] = useState("Filter By"); // filterby ddl
   const [q, setQ] = useState(""); // search query
   const [isLoading, setIsLoading] = useState(true); // loading indicator
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false); // side panel toggle
+  const [sidePanelData, setSidePanelData] = useState({
+    id: "",
+    full_name: "",
+    name: "",
+    abbreviation: "",
+    city: "",
+    conference: "",
+    division: "",
+    teamData: [],
+  }); // side panel data
+  const sidePanelContextValue = useMemo(() => ({
+    isSidePanelOpen,
+    setIsSidePanelOpen,
+    sidePanelData,
+    setSidePanelData,
+  }));
 
   useEffect(() => {
     setIsLoading(true);
@@ -91,8 +109,10 @@ function App() {
           </Dropdown>
         </InputGroup>
       </Container>
-      {isLoading ? <Loader /> : <DataTable data={dataMain} />}
-      <SidePanel />
+      <sidePanelContext.Provider value={sidePanelContextValue}>
+        {isLoading ? <Loader /> : <DataTable data={dataMain} />}
+        <SidePanel />
+      </sidePanelContext.Provider>
     </Container>
   );
 }
