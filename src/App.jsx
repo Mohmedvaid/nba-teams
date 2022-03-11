@@ -6,6 +6,7 @@ import FormControl from "react-bootstrap/FormControl";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Container from "react-bootstrap/Container";
 import DataTable from "./Components/DataTable";
+import SidePanel from "./Components/SidePanel";
 import {
   filterByValues,
   defaultFilterByText,
@@ -29,7 +30,10 @@ function App() {
         setRawData(res.data);
         setDataMain(res.data);
       })
-      .catch(console.error)
+      .catch((err) => {
+        alert("Something went wrong! Please try again later.");
+        console.error(err);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -88,6 +92,7 @@ function App() {
         </InputGroup>
       </Container>
       {isLoading ? <Loader /> : <DataTable data={dataMain} />}
+      <SidePanel />
     </Container>
   );
 }

@@ -20,6 +20,7 @@ function splitDataInChunks(data, chunkSize) {
 
 function Datatable({ data }) {
   const [page, setPage] = useState(0);
+  // remove unwanted columns
   const columns =
     data[0] &&
     Object.keys(data[0]).filter((key) => !ignoreFields.includes(key));
@@ -34,6 +35,10 @@ function Datatable({ data }) {
     setCurrentData(dataChunks[page]);
     setPage(0);
   }, [data]);
+
+  const displayTeamDetails = (team) => {
+    alert(JSON.stringify(team));
+  };
 
   if (!currentData || data.length === 0) {
     return (
@@ -60,8 +65,12 @@ function Datatable({ data }) {
         </thead>
         <tbody>
           {currentData.map((row, rowIndex) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <tr key={rowIndex} className="table-main-col">
+            <tr
+              // eslint-disable-next-line react/no-array-index-key
+              key={rowIndex}
+              className="table-main-col"
+              onClick={() => displayTeamDetails(row)}
+            >
               {columns.map((column, colIndex) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <td key={`${rowIndex}-${colIndex}`} className="p-3">
