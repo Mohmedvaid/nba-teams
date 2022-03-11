@@ -16,9 +16,7 @@ function BasicPagination({
         disabled={enablePrev}
         onClick={() => handlePageChange(currentPage - 1)}
       />
-
       <Pagination.Item disabled>{currentPage}</Pagination.Item>
-
       <Pagination.Next
         disabled={enableNext}
         onClick={() => handlePageChange(currentPage + 1)}

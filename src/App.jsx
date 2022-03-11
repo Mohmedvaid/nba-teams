@@ -61,6 +61,7 @@ function App() {
       <Container className="w-50 m-0">
         <InputGroup className="mb-3">
           <FormControl
+            placeholder="Search"
             aria-label="Text input with dropdown button"
             onChange={(e) => setQ(e.target.value)}
           />

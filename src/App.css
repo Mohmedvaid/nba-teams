@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 /* global */
 html * {
-font-family: 'Open Sans', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 h1 {
   font-size: 3em;
@@ -14,4 +14,22 @@ h1 {
 .filters {
   display: flex;
   max-width: 200px;
+}
+
+/* main table */
+.table-main {
+  text-align: center;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.table-main-col {
+  background-color: #f4f9ff;
+  font-weight: 600;
+}
+
+/* utils */
+.bg-theme {
+  background-color: #074684;
+  color: white;
 }
