@@ -7,7 +7,8 @@ h1 {
   font-size: 3em;
   color: #074684;
   margin-bottom: 0;
-  text-align: center;
+  text-align: left;
+  padding: 20px;
 }
 
 /* filters */
@@ -34,6 +35,18 @@ h1 {
   color: white;
 }
 
-.selected-row {
+.selected {
   background-color: #dededf;
+}
+
+.child-mt-2 > * {
+  margin-top: 30px;
+}
+
+.child-mb-2 > * {
+  margin-bottom: 30px;
+}
+
+.child-bold > * {
+  font-weight: 600;
 }

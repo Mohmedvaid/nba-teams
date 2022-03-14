@@ -33,7 +33,7 @@ function SidePanel() {
             aria-labelledby="offcanvasNavbarLabel"
             placement="end"
           >
-            <Offcanvas.Header>
+            <Offcanvas.Header className="selected">
               <Offcanvas.Title id="offcanvasNavbarLabel">
                 {sidePanelData.name}
               </Offcanvas.Title>
@@ -42,7 +42,7 @@ function SidePanel() {
             <Offcanvas.Body>
               {sidePanelData.teamData.length > 0 ? (
                 <>
-                  <Container>
+                  <Container className="child-mt-2 child-mb-2">
                     <Row>
                       <Col>Team Full Name:</Col>
                       <Col>{sidePanelData.full_name}</Col>
@@ -52,7 +52,7 @@ function SidePanel() {
                       <Col>{sidePanelData.teamData.length}</Col>
                     </Row>
                   </Container>
-                  <Container>
+                  <Container className="child-mt-2 child-mb-2 child-bold">
                     <p>Random Game Details</p>
                     <Row>
                       <Col>Date:</Col>

@@ -97,9 +97,7 @@ function Datatable({ data }) {
               // eslint-disable-next-line react/no-array-index-key
               key={rowIndex}
               className={`${
-                sidePanelData.id === row.id && isSidePanelOpen
-                  ? "selected-row"
-                  : ""
+                sidePanelData.id === row.id && isSidePanelOpen ? "selected" : ""
               } table-main-col`}
               onClick={() => displayTeamDetails(row)}
             >
