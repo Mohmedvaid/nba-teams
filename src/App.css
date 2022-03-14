@@ -33,3 +33,7 @@ h1 {
   background-color: #074684;
   color: white;
 }
+
+.selected-row {
+  background-color: #dededf;
+}

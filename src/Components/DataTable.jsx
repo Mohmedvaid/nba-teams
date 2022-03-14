@@ -28,8 +28,8 @@ function Datatable({ data }) {
   const dataChunks = splitDataInChunks(data, paginationSize);
   const [currentData, setCurrentData] = useState([]);
   const handlePageChange = (newPage) => {
+    setCurrentData(dataChunks[newPage]);
     setPage(newPage);
-    setCurrentData(dataChunks[page]);
   };
   const {
     isSidePanelOpen,
@@ -49,6 +49,7 @@ function Datatable({ data }) {
       `https://www.balldontlie.io/api/v1/games?team_ids[]=${teamID}`
     );
     const { data: teamData } = await response.json();
+    console.log(teamData);
     return teamData;
   };
 
@@ -75,7 +76,6 @@ function Datatable({ data }) {
       />
     );
   }
-  console.log(page);
   return (
     <Container>
       {/* basic table layout */}
@@ -97,7 +97,9 @@ function Datatable({ data }) {
               // eslint-disable-next-line react/no-array-index-key
               key={rowIndex}
               className={`${
-                sidePanelData.id === row.id ? "bg-danger" : ""
+                sidePanelData.id === row.id && isSidePanelOpen
+                  ? "selected-row"
+                  : ""
               } table-main-col`}
               onClick={() => displayTeamDetails(row)}
             >

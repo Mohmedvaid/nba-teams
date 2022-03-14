@@ -38,6 +38,16 @@ function App() {
     setIsSidePanelOpen,
     sidePanelData,
     setSidePanelData,
+    resetSidePanelData: () => ({
+      id: "",
+      full_name: "",
+      name: "",
+      abbreviation: "",
+      city: "",
+      conference: "",
+      division: "",
+      teamData: [],
+    }),
   }));
 
   useEffect(() => {

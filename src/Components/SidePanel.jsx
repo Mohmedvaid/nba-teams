@@ -8,8 +8,21 @@ import CloseButton from "react-bootstrap/CloseButton";
 import sidePanelContext from "../Context";
 
 function SidePanel() {
-  const { isSidePanelOpen, setIsSidePanelOpen, sidePanelData } =
-    useContext(sidePanelContext);
+  const {
+    isSidePanelOpen,
+    setIsSidePanelOpen,
+    sidePanelData,
+    resetSidePanelData,
+  } = useContext(sidePanelContext);
+
+  const closeAndResetData = () => {
+    setIsSidePanelOpen(false);
+    resetSidePanelData();
+  };
+  const formateDate = (date) => {
+    const newDate = new Date(date);
+    return `${newDate.getFullYear()}-${newDate.getMonth()}-${newDate.getDate()}`;
+  };
   return (
     <div>
       <Navbar expanded={isSidePanelOpen}>
@@ -24,7 +37,7 @@ function SidePanel() {
               <Offcanvas.Title id="offcanvasNavbarLabel">
                 {sidePanelData.name}
               </Offcanvas.Title>
-              <CloseButton onClick={() => setIsSidePanelOpen(false)} />
+              <CloseButton onClick={() => closeAndResetData()} />
             </Offcanvas.Header>
             <Offcanvas.Body>
               {sidePanelData.teamData.length > 0 ? (
@@ -40,15 +53,14 @@ function SidePanel() {
                     </Row>
                   </Container>
                   <Container>
+                    <p>Random Game Details</p>
                     <Row>
                       <Col>Date:</Col>
-                      <Col>
-                        {new Date(sidePanelData.teamData[0].date).toString()}
-                      </Col>
+                      <Col>{formateDate(sidePanelData.teamData[0].date)}</Col>
                     </Row>
                     <Row>
                       <Col>Home Team:</Col>
-                      <Col>{sidePanelData.teamData[0].home_team_name}</Col>
+                      <Col>{sidePanelData.teamData[0].home_team.name}</Col>
                     </Row>
                     <Row>
                       <Col>Home Team Score:</Col>
@@ -56,7 +68,7 @@ function SidePanel() {
                     </Row>
                     <Row>
                       <Col>Visitor Team:</Col>
-                      <Col>{sidePanelData.teamData[0].visitor_team_name}</Col>
+                      <Col>{sidePanelData.teamData[0].visitor_team.name}</Col>
                     </Row>
                     <Row>
                       <Col> Visitor Team Score:</Col>
